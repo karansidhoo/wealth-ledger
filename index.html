@@ -60,28 +60,31 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            /* Creative Mesh Gradient */
-            background: linear-gradient(120deg, #ffffff 0%, #f3f4f6 100%);
-            background-image: radial-gradient(#4f46e5 0.5px, transparent 0.5px), radial-gradient(#4f46e5 0.5px, #f9fafb 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            
+            /* Cleaner White Glassmorphism Base - Increased Opacity for Sticky Readability */
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
             padding: 24px 30px;
+            border-radius: 0 0 24px 24px; /* Rounded only at bottom when at top? No, keep all for aesthetic */
             border-radius: 24px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+                0 10px 15px -3px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(255,255,255,0.8);
-            position: relative;
+            border-top: 4px solid var(--primary); /* Accent Top Border */
+            
+            /* STICKY CONFIGURATION FIX */
+            position: sticky;
+            top: 0; /* Stick to very top edge */
+            z-index: 999; /* Ensure it stays above charts/content */
+            
             overflow: hidden;
-        }
-        
-        /* Overlay to soften the dots */
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
-            z-index: 1;
+            
+            /* Professional Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
         .header-content { z-index: 2; position: relative; }
@@ -485,14 +488,27 @@
         /* New Header Decoration */
         .header-bg-decoration {
             position: absolute;
-            top: -60px;
-            right: -60px;
+            top: -80px;
+            right: -80px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0) 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .header-bg-decoration-left {
+            position: absolute;
+            bottom: -60px;
+            left: -60px;
             width: 250px;
             height: 250px;
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(16, 185, 129, 0.15));
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0) 70%);
             border-radius: 50%;
-            filter: blur(50px);
-            z-index: 1;
+            filter: blur(40px);
+            z-index: 0;
             pointer-events: none;
         }
     </style>
@@ -503,6 +519,7 @@
     <!-- Header -->
     <header>
         <div class="header-bg-decoration"></div>
+        <div class="header-bg-decoration-left"></div>
         <div class="header-content">
             <h1>Wealth Ledger</h1>
             <p class="subtitle"><i class="ph-bold ph-trend-down"></i> Net Worth & Debt Planner</p>
