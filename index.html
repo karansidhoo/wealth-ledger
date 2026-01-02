@@ -8,7 +8,7 @@
     <!-- Favicon for Browser Tabs -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231e1b4b'/%3E%3Cpath d='M96 352l96-96 96 96 128-128' fill='none' stroke='%2310b981' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='416' cy='224' r='32' fill='%2310b981'/%3E%3C/svg%3E">
 
-    <!-- App Icon for iOS Home Screen (Rising Graph on Navy Background) -->
+    <!-- App Icon for iOS Home Screen -->
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231e1b4b'/%3E%3Cpath d='M96 352l96-96 96 96 128-128' fill='none' stroke='%2310b981' stroke-width='48' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='416' cy='224' r='32' fill='%2310b981'/%3E%3Ctext x='256' y='460' font-family='sans-serif' font-size='60' font-weight='bold' fill='%2364748b' text-anchor='middle'%3EWEALTH LEDGER%3C/text%3E%3C/svg%3E">
     
     <!-- Chart.js -->
@@ -42,6 +42,11 @@
             padding: 0;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            /* Creative Background Graphic */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+            background-attachment: fixed;
         }
 
         .container {
@@ -50,27 +55,42 @@
             padding: 20px 16px;
         }
 
-        /* --- Modern Header --- */
+        /* --- Modern Header with Creative Background --- */
         header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: white;
-            padding: 20px 24px;
-            border-radius: 20px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-sm);
+            /* Creative Mesh Gradient */
+            background: linear-gradient(120deg, #ffffff 0%, #f3f4f6 100%);
+            background-image: radial-gradient(#4f46e5 0.5px, transparent 0.5px), radial-gradient(#4f46e5 0.5px, #f9fafb 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            
+            padding: 24px 30px;
+            border-radius: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid rgba(255,255,255,0.8);
             position: relative;
             overflow: hidden;
         }
+        
+        /* Overlay to soften the dots */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0.95), rgba(255,255,255,0.8));
+            z-index: 1;
+        }
 
-        .header-content { z-index: 2; }
+        .header-content { z-index: 2; position: relative; }
         
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            letter-spacing: -0.025em;
-            margin: 0 0 4px 0;
+            letter-spacing: -0.03em;
+            margin: 0 0 6px 0;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -79,28 +99,36 @@
         p.subtitle {
             margin: 0;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            z-index: 2;
+            position: relative;
         }
 
         .settings-btn {
-            background: #f3f4f6;
-            border: none;
+            background: white;
+            border: 1px solid #e5e7eb;
             color: var(--text-main);
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            z-index: 10;
-            transition: background 0.2s;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
         }
-        .settings-btn:hover { background: #e5e7eb; }
+        .settings-btn:hover { background: #f9fafb; transform: rotate(45deg); }
 
         /* --- Main Content Layout --- */
         .main-layout {
@@ -122,56 +150,81 @@
 
         .total-card {
             color: white;
-            text-align: center;
-            padding: 24px;
+            text-align: left;
+            padding: 24px 20px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
             border-radius: 20px;
             box-shadow: var(--shadow-md);
+            transition: transform 0.2s;
+            min-height: 120px;
         }
+        .total-card:hover { transform: translateY(-2px); }
 
+        /* Gradient backgrounds */
+        .total-card.net-worth { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); }
+        .total-card.assets { background: linear-gradient(135deg, #0891b2 0%, #155e75 100%); }
         .total-card.liability { background: linear-gradient(135deg, #111827 0%, #374151 100%); }
         .total-card.cc-debt { background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%); }
         .total-card.reduced { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
-        .total-card.assets { background: linear-gradient(135deg, #0891b2 0%, #155e75 100%); }
-        .total-card.net-worth { background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%); }
 
-        .total-card::before {
-            content: '';
+        .total-card-icon {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 60%);
+            right: 15px;
+            top: 15px;
+            font-size: 2.2rem;
+            opacity: 0.2;
         }
 
         .total-label {
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             font-size: 0.7rem;
-            font-weight: 600;
+            font-weight: 700;
             opacity: 0.9;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             position: relative;
+            z-index: 2;
         }
 
         .total-amount {
             font-size: 1.8rem;
             font-weight: 800;
-            line-height: 1;
+            line-height: 1.1;
             letter-spacing: -0.5px;
             position: relative;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 4px;
+        }
+        
+        /* New Subtext Style */
+        .total-subtext {
+            font-size: 0.75rem;
+            opacity: 0.85;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
 
         /* --- Sections --- */
+        .section-container {
+            background: rgba(255,255,255,0.7);
+            border-radius: 24px;
+            padding: 12px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
+            padding: 4px 8px;
         }
         .section-header h2 {
             font-size: 1.1rem;
@@ -186,8 +239,8 @@
         .section-action-btn {
             background: white;
             border: 1px solid #e5e7eb;
-            padding: 6px 12px;
-            border-radius: 8px;
+            padding: 8px 14px;
+            border-radius: 10px;
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--primary);
@@ -196,25 +249,27 @@
             align-items: center;
             gap: 6px;
             box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
         }
-        .section-action-btn:hover { background: #f9fafb; }
+        .section-action-btn:hover { background: #f9fafb; transform: translateY(-1px); }
 
-        /* --- Main Update Button --- */
+        /* --- Main Action Button (Moved Below Tiles) --- */
         .main-action-btn {
             width: 100%;
             background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border: none;
-            padding: 16px;
+            padding: 18px;
             border-radius: 16px;
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 8px 20px -4px rgba(79, 70, 229, 0.4);
             margin-bottom: 10px;
             transition: transform 0.2s;
         }
@@ -235,8 +290,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
         }
+        .priority-item:hover { transform: translateX(2px); }
 
         .priority-item.focus {
             border: 2px solid var(--danger);
@@ -288,13 +345,13 @@
         }
 
         .panel {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 20px;
+            background: white;
+            padding: 24px;
+            border-radius: 24px;
             box-shadow: var(--shadow-md);
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid #e5e7eb;
         }
-        .panel h2 { margin-top: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; color: var(--text-main); margin-bottom: 15px;}
+        .panel h2 { margin-top: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; color: var(--text-main); margin-bottom: 20px;}
 
         .chart-container {
             position: relative;
@@ -333,8 +390,8 @@
             background: white;
             width: 100%;
             max-width: 450px;
-            border-radius: 20px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -367,9 +424,11 @@
         /* --- Form Elements in Modal --- */
         .form-group { margin-bottom: 20px; }
         label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; }
+        
+        /* Updated Input Styling for Uniformity */
         input, select {
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 16px;
             border: 2px solid #e5e7eb;
             border-radius: 12px;
             font-size: 1rem;
@@ -377,6 +436,11 @@
             color: var(--text-main);
             box-sizing: border-box;
             background: #f9fafb;
+            /* Ensure Date and Selects look identical to Text inputs */
+            appearance: none;
+            -webkit-appearance: none;
+            height: 52px; /* Fixed height for consistency */
+            line-height: normal;
         }
         input:focus, select:focus {
             outline: none;
@@ -416,8 +480,21 @@
         }
         .btn-icon-delete:hover { color: var(--danger); }
         
-        .chart-filter-select { padding: 6px; border-radius: 8px; border: 1px solid #d1d5db; }
+        .chart-filter-select { padding: 0 12px; border-radius: 8px; border: 1px solid #d1d5db; height: 36px; font-size: 0.9rem; }
 
+        /* New Header Decoration */
+        .header-bg-decoration {
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(16, 185, 129, 0.15));
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 1;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -425,49 +502,114 @@
 <div class="container">
     <!-- Header -->
     <header>
+        <div class="header-bg-decoration"></div>
         <div class="header-content">
             <h1>Wealth Ledger</h1>
             <p class="subtitle"><i class="ph-bold ph-trend-down"></i> Net Worth & Debt Planner</p>
         </div>
-        <button onclick="openModal('settingsModal')" class="settings-btn" title="Settings">
-            <i class="ph-bold ph-gear"></i>
-        </button>
+        <div class="header-actions">
+            <!-- Settings is here, Update moved to body -->
+            <button onclick="openModal('settingsModal')" class="settings-btn" title="Settings">
+                <i class="ph-bold ph-gear"></i>
+            </button>
+        </div>
     </header>
 
     <div class="main-layout">
         
-        <!-- Summary Section (Top of Mobile View) -->
+        <!-- Summary Section -->
         <div class="summary-section">
             <div class="summary-row top" style="margin-bottom: 16px;">
                 <div class="total-card net-worth">
+                    <i class="ph-duotone ph-wallet total-card-icon"></i>
                     <div class="total-label">Net Worth</div>
                     <div class="total-amount" id="totalNetWorthDisplay">$0.00</div>
+                    <div class="total-subtext">Assets - Liabilities</div>
                 </div>
                 <div class="total-card assets">
+                    <i class="ph-duotone ph-coins total-card-icon"></i>
                     <div class="total-label">Total Assets</div>
                     <div class="total-amount" id="totalAssetsDisplay">$0.00</div>
+                    <div class="total-subtext" id="assetCountSubtext">0 accounts</div>
                 </div>
             </div>
             <div class="summary-row bottom">
                 <div class="total-card liability">
+                    <i class="ph-duotone ph-scales total-card-icon"></i>
                     <div class="total-label">Liabilities</div>
                     <div class="total-amount" id="totalLiabilityDisplay">$0.00</div>
+                    <div class="total-subtext">All accounts combined</div>
                 </div>
                 <div class="total-card cc-debt">
+                    <i class="ph-duotone ph-credit-card total-card-icon"></i>
                     <div class="total-label">CC Debt</div>
                     <div class="total-amount" id="totalCCDisplay">$0.00</div>
+                    <div class="total-subtext" id="ccCountSubtext">0 active cards</div>
                 </div>
                 <div class="total-card reduced">
+                    <i class="ph-duotone ph-trend-down total-card-icon"></i>
                     <div class="total-label">Reduced</div>
                     <div class="total-amount" id="totalReducedDisplay">$0.00</div>
+                    <div class="total-subtext">Since tracking began</div>
                 </div>
             </div>
         </div>
 
-        <!-- Main Action -->
+        <!-- Main Action Button (Moved Here) -->
         <button onclick="openLogBalance()" class="main-action-btn">
-            <i class="ph-bold ph-pencil-simple"></i> Update Balances
+            <i class="ph-bold ph-pencil-simple"></i>
+            Update Balances
         </button>
+
+        <!-- Visual Analytics Title -->
+        <div class="section-header" style="margin-top: 32px; margin-bottom: 16px;">
+            <h2 style="font-size: 1.4rem; color: var(--primary-dark);"><i class="ph-duotone ph-chart-polar"></i> Visual Analytics</h2>
+        </div>
+
+        <!-- Charts Section (Reordered) -->
+        <div class="charts-grid">
+            
+            <!-- Net Worth & Assets (MOVED TO TOP) -->
+            <div class="panel full-width-chart">
+                <div class="chart-header">
+                    <h2><i class="ph-duotone ph-trend-up"></i> Net Worth & Assets</h2>
+                    <select id="netWorthFilter" onchange="renderCharts()" class="chart-filter-select">
+                        <option value="networth">Total Net Worth</option>
+                        <option value="assets">Total Assets</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartNetWorth"></canvas>
+                </div>
+            </div>
+
+            <!-- Liability History -->
+            <div class="panel full-width-chart">
+                <div class="chart-header">
+                    <h2><i class="ph-duotone ph-globe"></i> Liability History</h2>
+                    <select id="liabilityFilter" onchange="renderCharts()" class="chart-filter-select">
+                        <option value="all">Total All Debt</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartLiability"></canvas>
+                </div>
+            </div>
+
+            <!-- Total CC Debt (Renamed & Styled) -->
+            <div class="panel">
+                <h2><i class="ph-duotone ph-chart-line-up"></i> Total CC Debt</h2>
+                <div class="chart-container">
+                    <canvas id="chartTotal"></canvas>
+                </div>
+            </div>
+            <div class="panel">
+                <h2><i class="ph-duotone ph-chart-pie-slice"></i> Card Breakdown</h2>
+                <div class="chart-container">
+                    <canvas id="chartIndiv"></canvas>
+                </div>
+            </div>
+        </div>
 
         <!-- Credit Cards Section -->
         <div class="section-container">
@@ -477,6 +619,10 @@
                     <i class="ph-bold ph-plus"></i> Add New
                 </button>
             </div>
+            <!-- Avalanche Method Subtext -->
+            <p style="margin: -8px 0 16px 8px; font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">
+                <i class="ph-bold ph-lightning" style="color:var(--danger)"></i> Avalanche Method: Highest Rate First
+            </p>
             <div id="priorityList" class="priority-list">
                 <div style="text-align:center; padding: 20px; color: var(--text-muted); background: white; border-radius: 16px;">
                     No cards added.
@@ -510,50 +656,6 @@
             <div id="assetList" class="priority-list">
                 <div style="text-align:center; padding: 20px; color: var(--text-muted); background: white; border-radius: 16px;">
                     No assets added.
-                </div>
-            </div>
-        </div>
-
-        <!-- Charts Section -->
-        <div class="charts-grid">
-            <!-- Liability History -->
-            <div class="panel full-width-chart">
-                <div class="chart-header">
-                    <h2><i class="ph-duotone ph-globe"></i> Liability History</h2>
-                    <select id="liabilityFilter" onchange="renderCharts()" class="chart-filter-select">
-                        <option value="all">Total All Debt</option>
-                    </select>
-                </div>
-                <div class="chart-container">
-                    <canvas id="chartLiability"></canvas>
-                </div>
-            </div>
-
-            <!-- Net Worth & Assets -->
-            <div class="panel full-width-chart">
-                <div class="chart-header">
-                    <h2><i class="ph-duotone ph-trend-up"></i> Net Worth & Assets</h2>
-                    <select id="netWorthFilter" onchange="renderCharts()" class="chart-filter-select">
-                        <option value="networth">Total Net Worth</option>
-                        <option value="assets">Total Assets</option>
-                    </select>
-                </div>
-                <div class="chart-container">
-                    <canvas id="chartNetWorth"></canvas>
-                </div>
-            </div>
-
-            <!-- Smaller Charts -->
-            <div class="panel">
-                <h2><i class="ph-duotone ph-chart-line-up"></i> CC Debt History</h2>
-                <div class="chart-container">
-                    <canvas id="chartTotal"></canvas>
-                </div>
-            </div>
-            <div class="panel">
-                <h2><i class="ph-duotone ph-chart-pie-slice"></i> Card Breakdown</h2>
-                <div class="chart-container">
-                    <canvas id="chartIndiv"></canvas>
                 </div>
             </div>
         </div>
@@ -825,6 +927,10 @@
         document.getElementById('totalReducedDisplay').textContent = '$' + reducedAmount.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('totalAssetsDisplay').textContent = '$' + assetSum.toLocaleString(undefined, {minimumFractionDigits: 2});
         document.getElementById('totalNetWorthDisplay').textContent = '$' + netWorth.toLocaleString(undefined, {minimumFractionDigits: 2});
+
+        // Update Subtext
+        document.getElementById('ccCountSubtext').textContent = data.cards.length + " active cards";
+        document.getElementById('assetCountSubtext').textContent = data.assets.length + " accounts";
     }
 
     function renderSelect() {
@@ -944,9 +1050,26 @@
         }
 
         // --- Render ---
+        const ctxTotal = document.getElementById('chartTotal').getContext('2d');
+        const gradientTotal = ctxTotal.createLinearGradient(0, 0, 0, 300);
+        gradientTotal.addColorStop(0, 'rgba(79, 70, 229, 0.4)');
+        gradientTotal.addColorStop(1, 'rgba(79, 70, 229, 0.0)');
+
         if(chartTotalInstance) chartTotalInstance.destroy();
-        chartTotalInstance = new Chart(document.getElementById('chartTotal'), {
-            type: 'line', data: { labels: months, datasets: [{ label: 'Credit Card Debt', data: ccTotalData, borderColor: '#4f46e5', backgroundColor: 'rgba(79, 70, 229, 0.1)', fill: true, tension: 0.3 }] }, options: { responsive: true, maintainAspectRatio: false }
+        chartTotalInstance = new Chart(ctxTotal, {
+            type: 'line', 
+            data: { 
+                labels: months, 
+                datasets: [{ 
+                    label: 'Total CC Debt', 
+                    data: ccTotalData, 
+                    borderColor: '#4f46e5', 
+                    backgroundColor: gradientTotal, // Shaded area gradient
+                    fill: true, // Enable shaded area
+                    tension: 0.3 
+                }] 
+            }, 
+            options: { responsive: true, maintainAspectRatio: false }
         });
 
         if(chartIndivInstance) chartIndivInstance.destroy();
